@@ -298,6 +298,9 @@ void cg_input_method_relay_set_focus(struct cg_input_method_relay *relay,
 			if (surface != text_input->input->focused_surface) {
 				relay_disable_text_input(relay, text_input);
 				wlr_text_input_v3_send_leave(text_input->input);
+			} else {
+				wlr_log(WLR_DEBUG, "IM relay set_focus already focused");
+				continue;
 			}
 		}
 
