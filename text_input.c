@@ -263,6 +263,11 @@ void cg_input_method_relay_init(struct cg_seat *seat,
 		&relay->input_method_new);
 }
 
+void cg_input_method_relay_finish(struct cg_input_method_relay *relay) {
+	wl_list_remove(&relay->input_method_new.link);
+	wl_list_remove(&relay->text_input_new.link);
+}
+
 void cg_input_method_relay_set_focus(struct cg_input_method_relay *relay,
 		struct wlr_surface *surface) {
 	struct cg_text_input *text_input;

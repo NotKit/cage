@@ -53,6 +53,8 @@ struct cg_text_input {
 void cg_input_method_relay_init(struct cg_seat *seat,
 	struct cg_input_method_relay *relay);
 
+void cg_input_method_relay_finish(struct cg_input_method_relay *relay);
+
 // Updates currently focused surface. Surface must belong to the same seat.
 void cg_input_method_relay_set_focus(struct cg_input_method_relay *relay,
 	struct wlr_surface *surface);

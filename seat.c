@@ -829,6 +829,7 @@ seat_destroy(struct cg_seat *seat)
 		return;
 	}
 
+	cg_input_method_relay_finish(&seat->im_relay);
 	wl_list_remove(&seat->request_start_drag.link);
 	wl_list_remove(&seat->start_drag.link);
 
