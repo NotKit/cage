@@ -8,6 +8,8 @@
 #include <wlr/types/wlr_idle_inhibit_v1.h>
 #include <wlr/types/wlr_output_layout.h>
 #include <wlr/types/wlr_xdg_decoration_v1.h>
+#include <wlr/types/wlr_input_method_v2.h>
+#include <wlr/types/wlr_text_input_v3.h>
 #if CAGE_HAS_XWAYLAND
 #include <wlr/xwayland.h>
 #endif
@@ -38,6 +40,9 @@ struct cg_server {
 	 * some outputs may be disabled. */
 	struct wl_list outputs; // cg_output::link
 	struct wl_listener new_output;
+
+	struct wlr_input_method_manager_v2 *input_method;
+	struct wlr_text_input_manager_v3 *text_input;
 
 	struct wl_listener xdg_toplevel_decoration;
 	struct wl_listener new_xdg_shell_surface;

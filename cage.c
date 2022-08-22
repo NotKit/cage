@@ -349,6 +349,20 @@ main(int argc, char *argv[])
 	server.new_output.notify = handle_new_output;
 	wl_signal_add(&server.backend->events.new_output, &server.new_output);
 
+	server.input_method = wlr_input_method_manager_v2_create(server.wl_display);
+	if (!server.input_method) {
+		wlr_log(WLR_ERROR, "Unable to create the input method manager");
+		ret = 1;
+		goto end;
+	}
+
+	server.text_input = wlr_text_input_manager_v3_create(server.wl_display);
+	if (!server.text_input) {
+		wlr_log(WLR_ERROR, "Unable to create the text input manager");
+		ret = 1;
+		goto end;
+	}
+
 	server.seat = seat_create(&server, server.backend);
 	if (!server.seat) {
 		wlr_log(WLR_ERROR, "Unable to create the seat");

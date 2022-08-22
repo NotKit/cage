@@ -9,6 +9,7 @@
 #include <wlr/types/wlr_xcursor_manager.h>
 
 #include "server.h"
+#include "text_input.h"
 #include "view.h"
 
 #define DEFAULT_XCURSOR "left_ptr"
@@ -24,6 +25,7 @@ struct cg_seat {
 	struct wl_list pointers;
 	struct wl_list touch;
 	struct wl_listener new_input;
+	struct cg_input_method_relay im_relay;
 
 	struct wlr_cursor *cursor;
 	struct wlr_xcursor_manager *xcursor_manager;

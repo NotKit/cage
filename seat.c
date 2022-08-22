@@ -808,6 +808,8 @@ seat_create(struct cg_server *server, struct wlr_backend *backend)
 	wl_list_init(&seat->pointers);
 	wl_list_init(&seat->touch);
 
+	cg_input_method_relay_init(seat, &seat->im_relay);
+
 	seat->new_input.notify = handle_new_input;
 	wl_signal_add(&backend->events.new_input, &seat->new_input);
 
@@ -850,6 +852,9 @@ seat_set_focus(struct cg_seat *seat, struct cg_view *view)
 	struct cg_view *prev_view = seat_get_focus(seat);
 
 	if (!view || prev_view == view) {
+		if (!view) {
+			cg_input_method_relay_set_focus(&seat->im_relay, NULL);
+		}
 		return;
 	}
 
@@ -888,6 +893,7 @@ seat_set_focus(struct cg_seat *seat, struct cg_view *view)
 	} else {
 		wlr_seat_keyboard_notify_enter(wlr_seat, view->wlr_surface, NULL, 0, NULL);
 	}
+	cg_input_method_relay_set_focus(&seat->im_relay, view->wlr_surface);
 
 	process_cursor_motion(seat, -1);
 }
